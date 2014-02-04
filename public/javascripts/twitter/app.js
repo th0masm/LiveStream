@@ -15,9 +15,9 @@ angular.module('twitter', []).controller('ctrlTwitter', [ '$scope', 'twitterAPI'
 
         $scope.searchTwitter = function() {
         $scope.key = 'motogp';
-        twitterAPI.searchTwitter($scope.key)
+        twitterAPI.streamTwitter($scope.key)
             .success(function(data) {
-                $scope.twitter = data.message.statuses[0].text;
+                $scope.twitter = data.text.text;
             })
             .error(function(data, err) {
                 onError(data, err, 'test');
@@ -32,7 +32,7 @@ angular.module('twitter', []).controller('ctrlTwitter', [ '$scope', 'twitterAPI'
             return $http.get(url);
         }
 
-        function streamTwitter(){
+        function streamTwitter(key){
             var url = 'twitter/stream/' + encodeURIComponent(key);
             return $http.get(url);
         }
