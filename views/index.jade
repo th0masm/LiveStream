@@ -1,0 +1,20 @@
+doctype html
+html
+    head
+        meta(charset='utf8')
+
+        base(href='/')
+        title OffBikes Live
+        link(rel='stylesheet', href='/components/bootstrap/dist/css/bootstrap.css')
+        link(rel='stylesheet', href='/components/font-awesome/css/font-awesome.css')
+        link(rel='stylesheet', href='/stylesheets/style.css')
+        script(src='/components/jquery/jquery.js')
+        script(src='/components/bootstrap/dist/js/bootstrap.js')
+        script(src='/components/angular/angular.js')
+        script(src='/javascripts/twitter/app.js')
+    body
+        block content
+        h1= title
+        p Welcome to #{title}
+        div(ng-app="twitter", ng-controller="ctrlTwitter", ng-init="searchTwitter()")
+            div {{twitter}}
