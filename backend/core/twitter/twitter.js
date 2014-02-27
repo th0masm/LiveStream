@@ -19,7 +19,7 @@ exports.stream = function(req, res){
   stream.on('tweet', function (tweet) {
     console.log('TWEET');
     var wsserver = require('../../wsserver');
-    //wsserver.socket.emit('news', {hello:'world'});
+    wsserver.ws.emit('tweet', {text: 'tweet'});
     //res.json(200, {text: tweet});
   });
 }
