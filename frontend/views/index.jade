@@ -1,0 +1,49 @@
+doctype html
+html
+    head
+        meta(charset='utf8')
+
+        base(href='/')
+        title OffBikes Live
+        link(rel='stylesheet', href='/components/bootstrap/dist/css/bootstrap.css')
+        link(rel='stylesheet', href='/components/font-awesome/css/font-awesome.css')
+        script(src='/components/jquery/jquery.js')
+        script(src='/components/bootstrap/dist/js/bootstrap.js')
+        script(src='/components/angular/angular.js')
+        script(src='/javascripts/twitter/app.js')
+        script(src="/components/socket.io-client/dist/socket.io.js")
+        script
+            var sockets = io.connect()
+            sockets.on('init',function(msg){
+                alert(msg.msg)
+            })
+    body
+        .navbar.navbar-default.navbar-static-top(role='navigation')
+          .container
+              .navbar-header
+                button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+                  span.sr-only Toggle navigation
+                  span.icon-bar
+                  span.icon-bar
+                  span.icon-bar
+                a.navbar-brand(href='#') #{title}
+              .navbar-collapse.collapse
+                ul.nav.navbar-nav
+                  - var obj = { 'home':'Home', 'about':'About' }
+                    - each val, key in obj
+                      - if (id == key)
+                        li.active
+                          a(href='#{key}') #{val}
+                      - else            
+                        li
+                          a(href='#{key}') #{val}
+        block content
+            div.container
+                div.jumbotron
+                    div.row
+                        div.span10
+                            div(ng-app="twitter", ng-controller="ctrlTwitter", ng-init="searchTwitter()")
+                                div {{twitter}}
+                hr                       
+                footer
+                    p OffBikes.com
