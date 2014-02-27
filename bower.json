@@ -17,7 +17,7 @@
     "ignore": [
         "**/.*",
         "node_modules",
-        "public",
+        "frontend",
         "test",
         "tests"
     ],
@@ -29,6 +29,7 @@
         "bootstrap": "~3.0.3",
         "font-awesome": "~4.0.3",
         "angular-strap": "~2.0.0",
-        "chai": "~1.9.0"
+        "chai": "~1.9.0",
+        "socket.io": "~0.9"
     }
 }

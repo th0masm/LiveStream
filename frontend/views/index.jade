@@ -12,11 +12,8 @@ html
         script(src='/components/angular/angular.js')
         script(src='/javascripts/twitter/app.js')
         script(src="/components/socket.io-client/dist/socket.io.js")
-        script
-            var sockets = io.connect()
-            sockets.on('init',function(msg){
-                alert(msg.msg)
-            })
+        script(src="/javascripts/twitter/twitterws.js")
+
     body
         .navbar.navbar-default.navbar-static-top(role='navigation')
           .container

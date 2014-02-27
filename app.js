@@ -1,31 +1,50 @@
+var async = require('async');
 
-//Setup
-var express = require('express');
-var http = require('http');
-var path = require('path');
+function startWebServer(callback) {
+    if ( !config.webserver.enabled ) {
+        return callback();
+    }
 
-var app = express();
+    var webserver = require('./backend/webserver');
 
-//Configuration
-app.set('port', process.env.PORT || 3000);
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+    webserver.start(config.webserver.port, config.webserver.virtualhosts, function(err) {
+        if ( err ) {
+            console.log('webserver failed to start:',err);
+            if ( err.syscall === 'listen' && err.code === 'EADDRINUSE' ) {
+                console.log('Something is already listening on the webserver port', config.webserver.port);
+            }
+        }
+        callback.apply(this,arguments);
+    });
+};
 
-app.use(express.favicon());
-app.use(express.logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded());
-app.use(express.methodOverride());
-app.use(app.router);
-app.use(express.static(path.join(__dirname, 'public')));
+function startWsServer(callback) {
+    if ( !config.wsserver.enabled ) {
+        return callback();
+    }
 
-if ('development' == app.get('env')) {
-    app.use(express.errorHandler());
-}
+    var server = require('./backend/wsserver');
 
-require('./backend/routes')(app);
+    server.start(config.wsserver.port, function(err) {
+        if ( err ) {
+            console.log('websocket server failed to start:',err);
+        }
+        callback.apply(this,arguments);
+    });
+};
 
-//Launch
-http.createServer(app).listen(app.get('port'), function(){
-  console.log('Server listening on port ' + app.get('port'));
+var core = require('./backend/core');
+console.log('core bootstraped, configuration =',process.env.NODE_ENV);
+var config = core.config('default');
+
+
+async.series([startWebServer, startWsServer], function(err) {
+    if ( err ) {
+        console.log('Fatal error:',err);
+        if ( err.stack ) {
+            console.log(err.stack);
+        }
+        process.exit(1);
+    }
+    console.log('started');
 });

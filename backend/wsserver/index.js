@@ -48,7 +48,8 @@ function start(port, callback) {
         wsserver.server.on('error', listenCallback);
         realCallback = function() {};
     }
-    io.listen(wsserver.server);
+    io.listen(8081);
+  console.log(wsserver.port);
     realCallback();
 }
 
