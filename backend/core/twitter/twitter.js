@@ -17,9 +17,9 @@ exports.search = function(req, res){
 exports.stream = function(req, res){
   var stream = twit.stream('statuses/filter', { track: req.params.key })
   stream.on('tweet', function (tweet) {
-    console.log('TWEET');
     var wsserver = require('../../wsserver');
-    wsserver.ws.emit('tweet', {text: 'tweet'});
-    //res.json(200, {text: tweet});
+    wsserver.ws.emit('tweet', {text: tweet});
   });
+
+  res.json(200);
 }

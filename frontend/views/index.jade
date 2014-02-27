@@ -41,6 +41,9 @@ html
                         div.span10
                             div(ng-app="twitter", ng-controller="ctrlTwitter", ng-init="searchTwitter()")
                                 div {{twitter}}
+                                ul
+                                  li(ng-repeat="country in countries")
+                                    {{country.name}}
                 hr                       
                 footer
                     p OffBikes.com
