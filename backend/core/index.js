@@ -11,8 +11,6 @@ fs.readdirSync(__dirname).forEach(function(filename) {
   exports.__defineGetter__(filename, load);
 });
 
-
-
 exports.index = function(req, res){
   res.render('index', { title: 'OffBikes Live' });
 };

@@ -17,13 +17,13 @@ angular.module('twitter', []).controller('ctrlTwitter', [ '$scope', 'twitterAPI'
         $scope.key = 'motogp';
         twitterAPI.streamTwitter($scope.key)
             .success(function(data) {
-                $scope.twitter = data.text.text;
+              $scope.twitter = data.text.text;
             })
             .error(function(data, err) {
-                onError(data, err, 'test');
+              onError(data, err, 'test');
             })
             .finally (function() {
-            console.log("finally");
+              console.log("finally");
         });
     };
 }]).service('twitterAPI', ['$http', function($http) {

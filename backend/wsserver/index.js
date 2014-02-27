@@ -8,6 +8,7 @@ var WEBSOCKETS_NAMESPACES = ['/ws'];
 
 var wsserver = {
     server: null,
+    socket: null,
     port: null,
     started: false,
     namespaces: WEBSOCKETS_NAMESPACES
@@ -48,8 +49,12 @@ function start(port, callback) {
         wsserver.server.on('error', listenCallback);
         realCallback = function() {};
     }
-    io.listen(8081);
-  console.log(wsserver.port);
+    io.listen(wsserver.server);
+
+  wsserver.server.on('connection', function(socket) {
+    socket.emit('welcome', { message: 'Welcome!' });
+  });
+
     realCallback();
 }
 
