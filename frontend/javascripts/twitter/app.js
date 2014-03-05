@@ -1,6 +1,6 @@
 'use strict';
 
-var module = angular.module('twitter', []);
+var module = angular.module('twitter', ['ngAnimate']);
 
 module.factory('socket', ['$rootScope', socket]);
 
@@ -37,10 +37,18 @@ module.controller('ctrlTwitter', [ '$scope', 'twitterAPI', 'socket', function ($
 
         $scope.searchTwitter = function() {
         $scope.key = 'motogp';
+        $scope.tweets = [];
+        var i = 0;
         twitterAPI.streamTwitter($scope.key)
             .success(function(data) {   
               socket.on('tweet', function(tweet) {
-                $scope.twitter = tweet.text.text;               
+                if(i < 5){
+                    i++;
+                }
+                else{
+                    $scope.tweets.pop();
+                }
+                $scope.tweets.unshift(tweet);
               });
             })
             .error(function(data, err) {

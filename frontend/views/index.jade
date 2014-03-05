@@ -6,10 +6,12 @@ html
         base(href='/')
         title OffBikes Live
         link(rel='stylesheet', href='/components/bootstrap/dist/css/bootstrap.css')
+        link(rel='stylesheet', href='/components/test/style.css')
         link(rel='stylesheet', href='/components/font-awesome/css/font-awesome.css')
         script(src='/components/jquery/jquery.js')
         script(src='/components/bootstrap/dist/js/bootstrap.js')
         script(src='/components/angular/angular.js')
+        script(src='/components/angular-animate/angular-animate.js')
         script(src="/components/socket.io-client/dist/socket.io.js")
         script(src="/javascripts/twitter/twitterws.js")
         script(src='/javascripts/twitter/app.js')
@@ -40,10 +42,9 @@ html
                     div.row
                         div.span10
                             div(ng-app="twitter", ng-controller="ctrlTwitter", ng-init="searchTwitter()")
-                                div {{twitter}}
                                 ul
-                                  li(ng-repeat="country in countries")
-                                    {{country.name}}
+                                  li(class=['animate-repeat'], ng-repeat="tweet in tweets")
+                                    {{tweet.text.text}}
                 hr                       
                 footer
                     p OffBikes.com

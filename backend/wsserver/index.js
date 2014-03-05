@@ -49,6 +49,7 @@ function start(port, callback) {
         wsserver.server.on('error', listenCallback);
         realCallback = function() {};
     }
+    
     var socketio = io.listen(wsserver.server);
     socketio.sockets.on('connection', function(socket) {
         socket.emit('welcome', { message: 'Welcome!' });
